@@ -1,0 +1,528 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Database1Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="books" EntityType="Database1Model.Store.books" store:Type="Tables" store:Schema="dbo" store:Name="books" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [books].[Name] AS [Name], 
+      [books].[Quantity] AS [Quantity], 
+      [books].[Price] AS [Price], 
+      [books].[Record] AS [Record]
+      FROM [dbo].[books] AS [books]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="course" EntityType="Database1Model.Store.course" store:Type="Tables" store:Schema="dbo" store:Name="course" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [course].[std_id] AS [std_id], 
+      [course].[cou] AS [cou]
+      FROM [dbo].[course] AS [course]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="info" EntityType="Database1Model.Store.info" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Login" EntityType="Database1Model.Store.Login" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Marks" EntityType="Database1Model.Store.Marks" store:Type="Tables" store:Schema="dbo" store:Name="Marks" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [Marks].[id] AS [id], 
+      [Marks].[quiz1] AS [quiz1], 
+      [Marks].[quiz2] AS [quiz2], 
+      [Marks].[quiz3] AS [quiz3], 
+      [Marks].[attend] AS [attend], 
+      [Marks].[story] AS [story], 
+      [Marks].[part] AS [part], 
+      [Marks].[song] AS [song], 
+      [Marks].[final] AS [final], 
+      [Marks].[grade] AS [grade], 
+      [Marks].[result] AS [result]
+      FROM [dbo].[Marks] AS [Marks]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="paying" EntityType="Database1Model.Store.paying" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Tinfo" EntityType="Database1Model.Store.Tinfo" store:Type="Tables" Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Tpayment" EntityType="Database1Model.Store.Tpayment" store:Type="Tables" store:Schema="dbo" store:Name="Tpayment" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
+            <DefiningQuery>SELECT 
+      [Tpayment].[Id] AS [Id], 
+      [Tpayment].[level] AS [level], 
+      [Tpayment].[Date] AS [Date], 
+      [Tpayment].[take1] AS [take1], 
+      [Tpayment].[take2] AS [take2], 
+      [Tpayment].[take3] AS [take3], 
+      [Tpayment].[take4] AS [take4]
+      FROM [dbo].[Tpayment] AS [Tpayment]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="courses" Association="Database1Model.Store.courses">
+            <End Role="info" EntitySet="info" />
+            <End Role="course" EntitySet="course" />
+          </AssociationSet>
+          <AssociationSet Name="mark" Association="Database1Model.Store.mark">
+            <End Role="info" EntitySet="info" />
+            <End Role="Marks" EntitySet="Marks" />
+          </AssociationSet>
+          <AssociationSet Name="stdd" Association="Database1Model.Store.stdd">
+            <End Role="info" EntitySet="info" />
+            <End Role="paying" EntitySet="paying" />
+          </AssociationSet>
+          <AssociationSet Name="Tpay" Association="Database1Model.Store.Tpay">
+            <End Role="Tinfo" EntitySet="Tinfo" />
+            <End Role="Tpayment" EntitySet="Tpayment" />
+          </AssociationSet>
+        </EntityContainer>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'E:\MARS - COPY\MARS\DATABASE1.MDF.dbo.books' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="books">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Record" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'E:\MARS - COPY\MARS\DATABASE1.MDF.dbo.course' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="std_id" />
+            <PropertyRef Name="cou" />
+          </Key>
+          <Property Name="std_id" Type="int" Nullable="false" />
+          <Property Name="cou" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="serial" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="phone" Type="int" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="number" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="password" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'E:\MARS - COPY\MARS\DATABASE1.MDF.dbo.Marks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Marks">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="quiz1" />
+            <PropertyRef Name="quiz2" />
+            <PropertyRef Name="quiz3" />
+            <PropertyRef Name="attend" />
+            <PropertyRef Name="story" />
+            <PropertyRef Name="part" />
+            <PropertyRef Name="song" />
+            <PropertyRef Name="final" />
+            <PropertyRef Name="grade" />
+            <PropertyRef Name="result" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="quiz1" Type="int" Nullable="false" />
+          <Property Name="quiz2" Type="int" Nullable="false" />
+          <Property Name="quiz3" Type="int" Nullable="false" />
+          <Property Name="attend" Type="int" Nullable="false" />
+          <Property Name="story" Type="int" Nullable="false" />
+          <Property Name="part" Type="int" Nullable="false" />
+          <Property Name="song" Type="int" Nullable="false" />
+          <Property Name="final" Type="int" Nullable="false" />
+          <Property Name="grade" Type="int" Nullable="false" />
+          <Property Name="result" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="paying">
+          <Key>
+            <PropertyRef Name="page" />
+          </Key>
+          <Property Name="std_id" Type="int" Nullable="false" />
+          <Property Name="page" Type="int" Nullable="false" />
+          <Property Name="payment_1" Type="int" />
+          <Property Name="payment_2" Type="int" />
+          <Property Name="page2" Type="int" />
+        </EntityType>
+        <EntityType Name="Tinfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="phone" Type="int" />
+          <Property Name="address" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'E:\MARS - COPY\MARS\DATABASE1.MDF.dbo.Tpayment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Tpayment">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="level" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="level" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="take1" Type="int" />
+          <Property Name="take2" Type="int" />
+          <Property Name="take3" Type="int" />
+          <Property Name="take4" Type="int" />
+        </EntityType>
+        <Association Name="courses">
+          <End Role="info" Type="Database1Model.Store.info" Multiplicity="1" />
+          <End Role="course" Type="Database1Model.Store.course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="course">
+              <PropertyRef Name="std_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="mark">
+          <End Role="info" Type="Database1Model.Store.info" Multiplicity="1" />
+          <End Role="Marks" Type="Database1Model.Store.Marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Marks">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="stdd">
+          <End Role="info" Type="Database1Model.Store.info" Multiplicity="1" />
+          <End Role="paying" Type="Database1Model.Store.paying" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paying">
+              <PropertyRef Name="std_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tpay">
+          <End Role="Tinfo" Type="Database1Model.Store.Tinfo" Multiplicity="1" />
+          <End Role="Tpayment" Type="Database1Model.Store.Tpayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tinfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tpayment">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="Database1Entities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="books" EntityType="Database1Model.book" />
+          <EntitySet Name="courses" EntityType="Database1Model.course" />
+          <EntitySet Name="infoes" EntityType="Database1Model.info" />
+          <EntitySet Name="Logins" EntityType="Database1Model.Login" />
+          <EntitySet Name="Marks" EntityType="Database1Model.Mark" />
+          <EntitySet Name="payings" EntityType="Database1Model.paying" />
+          <EntitySet Name="Tinfoes" EntityType="Database1Model.Tinfo" />
+          <EntitySet Name="Tpayments" EntityType="Database1Model.Tpayment" />
+          <AssociationSet Name="courses1" Association="Database1Model.courses">
+            <End Role="info" EntitySet="infoes" />
+            <End Role="course" EntitySet="courses" />
+          </AssociationSet>
+          <AssociationSet Name="mark" Association="Database1Model.mark1">
+            <End Role="info" EntitySet="infoes" />
+            <End Role="Marks" EntitySet="Marks" />
+          </AssociationSet>
+          <AssociationSet Name="stdd" Association="Database1Model.stdd">
+            <End Role="info" EntitySet="infoes" />
+            <End Role="paying" EntitySet="payings" />
+          </AssociationSet>
+          <AssociationSet Name="Tpay" Association="Database1Model.Tpay">
+            <End Role="Tinfo" EntitySet="Tinfoes" />
+            <End Role="Tpayment" EntitySet="Tpayments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="book">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Record" Type="Int32" />
+        </EntityType>
+        <EntityType Name="course">
+          <Key>
+            <PropertyRef Name="std_id" />
+            <PropertyRef Name="cou" />
+          </Key>
+          <Property Name="std_id" Type="Int32" Nullable="false" />
+          <Property Name="cou" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="info" Relationship="Database1Model.courses" FromRole="course" ToRole="info" />
+        </EntityType>
+        <EntityType Name="info">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="serial" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="phone" Type="Int32" />
+          <Property Name="address" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="courses" Relationship="Database1Model.courses" FromRole="info" ToRole="course" />
+          <NavigationProperty Name="Marks" Relationship="Database1Model.mark1" FromRole="info" ToRole="Marks" />
+          <NavigationProperty Name="payings" Relationship="Database1Model.stdd" FromRole="info" ToRole="paying" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Mark">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="quiz1" />
+            <PropertyRef Name="quiz2" />
+            <PropertyRef Name="quiz3" />
+            <PropertyRef Name="attend" />
+            <PropertyRef Name="story" />
+            <PropertyRef Name="part" />
+            <PropertyRef Name="song" />
+            <PropertyRef Name="final" />
+            <PropertyRef Name="grade" />
+            <PropertyRef Name="result" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="quiz1" Type="Int32" Nullable="false" />
+          <Property Name="quiz2" Type="Int32" Nullable="false" />
+          <Property Name="quiz3" Type="Int32" Nullable="false" />
+          <Property Name="attend" Type="Int32" Nullable="false" />
+          <Property Name="story" Type="Int32" Nullable="false" />
+          <Property Name="part" Type="Int32" Nullable="false" />
+          <Property Name="song" Type="Int32" Nullable="false" />
+          <Property Name="final" Type="Int32" Nullable="false" />
+          <Property Name="grade" Type="Int32" Nullable="false" />
+          <Property Name="result" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="info" Relationship="Database1Model.mark1" FromRole="Marks" ToRole="info" />
+        </EntityType>
+        <EntityType Name="paying">
+          <Key>
+            <PropertyRef Name="page" />
+          </Key>
+          <Property Name="std_id" Type="Int32" Nullable="false" />
+          <Property Name="page" Type="Int32" Nullable="false" />
+          <Property Name="payment_1" Type="Int32" />
+          <Property Name="payment_2" Type="Int32" />
+          <Property Name="page2" Type="Int32" />
+          <NavigationProperty Name="info" Relationship="Database1Model.stdd" FromRole="paying" ToRole="info" />
+        </EntityType>
+        <EntityType Name="Tinfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="phone" Type="Int32" />
+          <Property Name="address" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Tpayments" Relationship="Database1Model.Tpay" FromRole="Tinfo" ToRole="Tpayment" />
+        </EntityType>
+        <EntityType Name="Tpayment">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="level" />
+            <PropertyRef Name="Date" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="level" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="take1" Type="Int32" />
+          <Property Name="take2" Type="Int32" />
+          <Property Name="take3" Type="Int32" />
+          <Property Name="take4" Type="Int32" />
+          <NavigationProperty Name="Tinfo" Relationship="Database1Model.Tpay" FromRole="Tpayment" ToRole="Tinfo" />
+        </EntityType>
+        <Association Name="courses">
+          <End Role="info" Type="Database1Model.info" Multiplicity="1" />
+          <End Role="course" Type="Database1Model.course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="course">
+              <PropertyRef Name="std_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="mark1">
+          <End Role="info" Type="Database1Model.info" Multiplicity="1" />
+          <End Role="Marks" Type="Database1Model.Mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Marks">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="stdd">
+          <End Role="info" Type="Database1Model.info" Multiplicity="1" />
+          <End Role="paying" Type="Database1Model.paying" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="info">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="paying">
+              <PropertyRef Name="std_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tpay">
+          <End Role="Tinfo" Type="Database1Model.Tinfo" Multiplicity="1" />
+          <End Role="Tpayment" Type="Database1Model.Tpayment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tinfo">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Tpayment">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="books">
+            <EntityTypeMapping TypeName="Database1Model.book">
+              <MappingFragment StoreEntitySet="books">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Record" ColumnName="Record" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="courses">
+            <EntityTypeMapping TypeName="Database1Model.course">
+              <MappingFragment StoreEntitySet="course">
+                <ScalarProperty Name="std_id" ColumnName="std_id" />
+                <ScalarProperty Name="cou" ColumnName="cou" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="infoes">
+            <EntityTypeMapping TypeName="Database1Model.info">
+              <MappingFragment StoreEntitySet="info">
+                <ScalarProperty Name="serial" ColumnName="serial" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="number" ColumnName="number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="Database1Model.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marks">
+            <EntityTypeMapping TypeName="Database1Model.Mark">
+              <MappingFragment StoreEntitySet="Marks">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="quiz1" ColumnName="quiz1" />
+                <ScalarProperty Name="quiz2" ColumnName="quiz2" />
+                <ScalarProperty Name="quiz3" ColumnName="quiz3" />
+                <ScalarProperty Name="attend" ColumnName="attend" />
+                <ScalarProperty Name="story" ColumnName="story" />
+                <ScalarProperty Name="part" ColumnName="part" />
+                <ScalarProperty Name="song" ColumnName="song" />
+                <ScalarProperty Name="final" ColumnName="final" />
+                <ScalarProperty Name="grade" ColumnName="grade" />
+                <ScalarProperty Name="result" ColumnName="result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payings">
+            <EntityTypeMapping TypeName="Database1Model.paying">
+              <MappingFragment StoreEntitySet="paying">
+                <ScalarProperty Name="std_id" ColumnName="std_id" />
+                <ScalarProperty Name="page" ColumnName="page" />
+                <ScalarProperty Name="payment_1" ColumnName="payment_1" />
+                <ScalarProperty Name="payment_2" ColumnName="payment_2" />
+                <ScalarProperty Name="page2" ColumnName="page2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tinfoes">
+            <EntityTypeMapping TypeName="Database1Model.Tinfo">
+              <MappingFragment StoreEntitySet="Tinfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tpayments">
+            <EntityTypeMapping TypeName="Database1Model.Tpayment">
+              <MappingFragment StoreEntitySet="Tpayment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="take1" ColumnName="take1" />
+                <ScalarProperty Name="take2" ColumnName="take2" />
+                <ScalarProperty Name="take3" ColumnName="take3" />
+                <ScalarProperty Name="take4" ColumnName="take4" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams />
+  </Designer>
+</edmx:Edmx>
